@@ -6,7 +6,6 @@ foreign import lib "system:c"
 foreign lib {
     closelog :: proc() ---
     openlog :: proc(cstring, i32, i32) ---
-    setlogmask :: proc(i32) -> i32 ---
     syslog :: proc(i32, cstring) ---
 }
 
@@ -52,10 +51,6 @@ close :: proc() {
 open :: proc(ident: cstring, options: LogOption, facility: LogFacility, priority: LogPriority) {
     fac := (i32(facility) << 3) | i32(priority)
     openlog(ident, i32(options), fac)
-}
-
-set_priority :: proc(mask: LogPriority) -> i32 {
-    return setlogmask(i32(mask))
 }
 
 log :: proc(priority: LogPriority, message: cstring) {
