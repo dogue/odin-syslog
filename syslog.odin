@@ -44,9 +44,7 @@ LogOption :: enum i32 {
     PERROR = 0x20,  // log to stderr as well
 }
 
-close :: proc() {
-    closelog()
-}
+close :: closelog
 
 open :: proc(ident: cstring, options: LogOption, facility: LogFacility, priority: LogPriority) {
     fac := (i32(facility) << 3) | i32(priority)
